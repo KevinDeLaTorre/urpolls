@@ -18,6 +18,7 @@ gem "bootstrap", '~> 5.1.3'
 gem "devise"
 gem "will_paginate"
 gem "jquery-rails"
+gem "rails-ujs"
 gem "simple_form"
 
 
