@@ -1,5 +1,5 @@
 class PollChoice < ApplicationRecord
   belongs_to :poll
 
-  validates :content, allow_blank: false
+  validates :content, uniqueness: { allow_blank: false }
 end
