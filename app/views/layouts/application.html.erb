@@ -14,7 +14,13 @@
     <%= render 'layouts/header' %>
     <div class="container">
       <% flash.each do |message_type, message| %>
-        <%= content_tag( :div, message, class: "alert alert-#{message_type}") %>
+        <% if message_type == "notice" %>
+          <%= content_tag( :div, message, class: "alert alert-success") %>
+        <% elsif message_type == "alert" %>
+          <%= content_tag( :div, message, class: "alert alert-danger") %>
+        <% else %>
+          <%= content_tag( :div, message, class: "alert alert-#{message_type}") %>
+        <% end %>
       <% end %>
       <%= yield %>
       <%= render 'layouts/footer' %>
