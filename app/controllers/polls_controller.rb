@@ -8,7 +8,7 @@ class PollsController < ApplicationController
 
   # GET /polls or /polls.json
   def index
-    @polls = Poll.includes([:poll_choices]).all.paginate(page: params[:page], per_page: DEFAULTITEMSPERPAGE)
+    @polls = Poll.includes([:poll_choices, :user]).all.paginate(page: params[:page], per_page: DEFAULTITEMSPERPAGE)
   end
 
   # GET /polls/1 or /polls/1.json
