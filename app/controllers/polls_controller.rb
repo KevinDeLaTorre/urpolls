@@ -5,6 +5,7 @@ class PollsController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy]
 
   ITEMSPERPAGE = 10.freeze
+  NUM_MINIMUM_CHOICES = 2.freeze
 
   # GET /polls or /polls.json
   def index
@@ -69,7 +70,7 @@ class PollsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_poll
-    @poll = Poll.includes([:poll_choices]).find(params[:id])
+    @poll = Poll.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
@@ -85,7 +86,7 @@ class PollsController < ApplicationController
   end
 
   def check_minimum_choices
-    if params[:poll][:choices].nil? or params[:poll][:choices].size < 2
+    if params[:poll][:choices].nil? or params[:poll][:choices].size < NUM_MINIMUM_CHOICES 
       flash[:danger] = "At least 2 poll choices are required"
       if params[:id].nil?
         redirect_to new_poll_path
