@@ -1,12 +1,10 @@
 <div id="<%= dom_id poll %>">
-  <p>
-    <strong>User:</strong>
-    <%= poll.user_id %>
-  </p>
-
-  <p>
-    <strong>Title:</strong>
-    <%= poll.title %>
-  </p>
+  <div>
+    <p><strong>User: </strong><%= poll.user_id %></p>
+    <p><strong>Title: </strong><%= poll.title %></p>
+    <% poll.poll_choices.each do |choice| %>
+      <p class="pl-2">- <%= choice.content %></p>
+    <% end %>
+  </div>
 
 </div>
