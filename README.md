@@ -1,24 +1,16 @@
-# README
+# Urpolls
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Allows users to create polls and vote on other polls.
 
-Things you may want to cover:
+Hosted on heroku:\
+https://urpolls.herokuapp.com/
 
-* Ruby version
+## Setup
+Install required gems:\
+``` bundle install ```
 
-* System dependencies
+Initialize database:\
+``` rails db:migrate ```
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Start server:\
+``` rails s ```
