@@ -1,8 +1,8 @@
-<%= simple_form_for :poll, url: polls_path do |poll| %>
-  <%= poll.input :title, label: "Title of poll:", placeholder: "Are you right handed?", autofocus: true, required: true %>
-  <%= poll.simple_fields_for :choices do |choice| %>
-    <%= choice.input nil, label: "Enter a poll choice:", placeholder: "True", required: true %>
-    <%= choice.input nil, label: "Enter a poll choice:", placeholder: "False", required: true %>
+<%= simple_form_for @poll do |poll| %>
+  <%= poll.input :title, label: "Title of poll:", placeholder: "Are you right handed?", autofocus: true, required: true, class: "form-control" %>
+  <%= poll.fields_for :choices do |choice| %>
+    <%= choice.input nil, label: "Enter a poll choice:", placeholder: "True", required: true, class: "form-control" %>
+    <%= choice.input nil, label: "Enter a poll choice:", placeholder: "False", required: true, class: "form-control" %>
   <% end %>
   <%= poll.hidden_field :user_id, :value => current_user.id %>
   <%= poll.button :submit, value: "Submit poll", class: "btn btn-primary mt-2" %>

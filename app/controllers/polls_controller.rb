@@ -1,7 +1,7 @@
 class PollsController < ApplicationController
   before_action :set_poll, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :check_minimum_choices, only: [:create, :update]
+  before_action :validate_choices, only: [:create, :update]
   before_action :correct_user, only: [:edit, :update, :destroy]
 
   NUM_MINIMUM_CHOICES = 2.freeze
@@ -22,6 +22,7 @@ class PollsController < ApplicationController
 
   # GET /polls/1/edit
   def edit
+    @edit = true
   end
 
   # POST /polls or /polls.json
@@ -46,11 +47,11 @@ class PollsController < ApplicationController
   # PATCH/PUT /polls/1 or /polls/1.json
   def update
     respond_to do |format|
-      if @poll.update(poll_params)
-        format.html { redirect_to poll_url(@poll), success: "Poll was successfully updated." }
+      if @poll.update(poll_params.except(:choices))
+        format.html { redirect_to poll_url(@poll), notice: "Poll was successfully updated." }
         format.json { render :show, status: :ok, location: @poll }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity, alert: "Poll was not successfully updated, please try again." }
         format.json { render json: @poll.errors, status: :unprocessable_entity }
       end
     end
@@ -84,14 +85,26 @@ class PollsController < ApplicationController
     end
   end
 
-  def check_minimum_choices
-    if params[:poll][:choices].nil? or params[:poll][:choices].size < NUM_MINIMUM_CHOICES 
+  def validate_choices
+    choices = params[:poll][:choices].reject(&:empty?)
+    valid = true
+    if choices.nil? or choices.size < NUM_MINIMUM_CHOICES 
       flash[:danger] = "At least 2 poll choices are required"
+      valid = false
+    end
+
+    if choices.map(&:downcase).uniq! != nil
+      flash[:danger] = "All choices must be unique"
+      valid = false
+    end
+
+    if not valid
       if params[:id].nil?
         redirect_to new_poll_path
       else
         redirect_to edit_poll_path
       end
+
     end
   end
 end
