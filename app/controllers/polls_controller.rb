@@ -1,10 +1,13 @@
 class PollsController < ApplicationController
   before_action :set_poll, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :check_minimum_choices, only: [:create, :update]
+
+  ITEMSPERPAGE = 10.freeze
 
   # GET /polls or /polls.json
   def index
-    @polls = Poll.all
+    @polls = Poll.includes([:poll_choices]).all.paginate(page: params[:page], per_page: ITEMSPERPAGE)
   end
 
   # GET /polls/1 or /polls/1.json
@@ -22,13 +25,18 @@ class PollsController < ApplicationController
 
   # POST /polls or /polls.json
   def create
-    @poll = Poll.new(poll_params)
+    @poll = Poll.new(poll_params.except(:choices))
 
     respond_to do |format|
       if @poll.save
+        params[:poll][:choices].each do |choice|
+          @poll.poll_choices.create(content: choice)
+        end
+        flash[:success] = "Poll created successfully"
         format.html { redirect_to poll_url(@poll), notice: "Poll was successfully created." }
         format.json { render :show, status: :created, location: @poll }
       else
+        flash[:danger] = "Poll was not created successfully"
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @poll.errors, status: :unprocessable_entity }
       end
@@ -39,7 +47,7 @@ class PollsController < ApplicationController
   def update
     respond_to do |format|
       if @poll.update(poll_params)
-        format.html { redirect_to poll_url(@poll), notice: "Poll was successfully updated." }
+        format.html { redirect_to poll_url(@poll), success: "Poll was successfully updated." }
         format.json { render :show, status: :ok, location: @poll }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -59,13 +67,24 @@ class PollsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_poll
-      @poll = Poll.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_poll
+    @poll = Poll.includes([:poll_choices]).find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def poll_params
-      params.require(:poll).permit(:user_id, :title)
+  # Only allow a list of trusted parameters through.
+  def poll_params
+    params.require(:poll).permit(:user_id, :title, choices: [])
+  end
+
+  def check_minimum_choices
+    if params[:poll][:choices].nil? or params[:poll][:choices].size < 2
+      flash[:danger] = "At least 2 poll choices are required"
+      if params[:id].nil?
+        redirect_to new_poll_path
+      else
+        redirect_to edit_poll_path
+      end
     end
+  end
 end
