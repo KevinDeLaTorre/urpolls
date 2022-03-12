@@ -4,12 +4,11 @@ class PollsController < ApplicationController
   before_action :check_minimum_choices, only: [:create, :update]
   before_action :correct_user, only: [:edit, :update, :destroy]
 
-  ITEMSPERPAGE = 10.freeze
   NUM_MINIMUM_CHOICES = 2.freeze
 
   # GET /polls or /polls.json
   def index
-    @polls = Poll.includes([:poll_choices]).all.paginate(page: params[:page], per_page: ITEMSPERPAGE)
+    @polls = Poll.includes([:poll_choices]).all.paginate(page: params[:page], per_page: DEFAULTITEMSPERPAGE)
   end
 
   # GET /polls/1 or /polls/1.json

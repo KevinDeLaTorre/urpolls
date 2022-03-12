@@ -7,7 +7,7 @@
       <%= link_to "Show this poll", poll %>
     </p>
   <% end %>
-  <%= will_paginate %>
+  <%= will_paginate @polls %>
 </div>
 
 <%= link_to "New poll", new_poll_path %>
