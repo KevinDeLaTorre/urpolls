@@ -1,5 +1,16 @@
-<div class="jumbotron text-center">Your polls</div>
+<% if user_signed_in? %>
+  <div class="jumbotron text-center">YOUR POLLS</div>
+<% else %>
+  <div class="jumbotron text-center">ALL POLLS</div>
+<% end %>
 
-<%= render @polls %>
+<% if @polls.any? %>
+  <%= render @polls %>
+<% else %>
+  <div class="jumbotron text-center">
+    YOU HAVE NOT CREATED ANY POLLS YET CREATE ONE <%= link_to "HERE", new_poll_path %>!
+    or see everybody else's <%= link_to 'here', polls_path %>
+  </div>
+<% end %>
 <%= will_paginate @polls %>
 
