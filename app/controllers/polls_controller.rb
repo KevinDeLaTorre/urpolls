@@ -2,6 +2,7 @@ class PollsController < ApplicationController
   before_action :set_poll, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :check_minimum_choices, only: [:create, :update]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   ITEMSPERPAGE = 10.freeze
 
@@ -32,7 +33,6 @@ class PollsController < ApplicationController
         params[:poll][:choices].each do |choice|
           @poll.poll_choices.create(content: choice)
         end
-        flash[:success] = "Poll created successfully"
         format.html { redirect_to poll_url(@poll), notice: "Poll was successfully created." }
         format.json { render :show, status: :created, location: @poll }
       else
@@ -75,6 +75,13 @@ class PollsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def poll_params
     params.require(:poll).permit(:user_id, :title, choices: [])
+  end
+
+  def correct_user
+    if @poll.user_id != current_user.id
+      flash[:info] = "Unable to access because you are not signed in as the owner/admin"
+      redirect_to @poll
+    end
   end
 
   def check_minimum_choices
