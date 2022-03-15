@@ -1,0 +1,6 @@
+<p>User email: <%= @user.email %></p>
+
+<p>Recent Votes:</p> 
+<% @user.votes.each do |vote| %>
+  <%= vote.poll_choice.content %> 
+<% end %>

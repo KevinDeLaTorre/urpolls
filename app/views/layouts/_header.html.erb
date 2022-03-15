@@ -1,13 +1,39 @@
-<p class="text-center">URPOLLS</p>
-
-<div class="container text-center">
-  <%= link_to "Home", root_url %>
-  <%= link_to "Polls", polls_path %>
-  <% if user_signed_in? %>
-    <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-  <% else %>
-    <%= link_to "Sign in", new_user_session_path %>
-    <%= link_to "Sign up", new_user_registration_path %>
-  <% end %>
+<div class="site-nav-wrap">
+  <section id="site-nav" class="site-header text-center">
+    <div class="container">
+      <div class="row">
+        <p class="site-title">URPOLLS</p>
+        <p class="site-description">See What Others Are Thinking</p>
+      </div>
+    </div>
+  </section>
+  <section class="site-header-bottom">
+    <div class="container">
+      <nav class="navigation-bar text-center ">
+        <ul id="primary-menu" class="nav justify-content-center">
+          <li id="nav-home" class="menu-item">
+            <%= link_to "Home", root_url %>
+          </li>
+          <li id="nav-polls" class="menu-item">
+            <%= link_to "Polls", polls_path %>
+          </li>
+          <% if user_signed_in? %>
+            <li id="nav-account" class="menu-item">
+              <%= link_to "My account", user_path(current_user.id) %>
+            </li>
+            <li id="nav-signout" class="menu-item">
+              <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+            </li>
+          <% else %>
+            <li id="nav-signin" class="menu-item">
+              <%= link_to "Sign in", new_user_session_path %>
+            </li>
+            <li id="nav-signin" class="menu-item">
+              <%= link_to "Sign up", new_user_registration_path %>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </section>
 </div>
-

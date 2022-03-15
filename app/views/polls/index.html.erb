@@ -1,4 +1,4 @@
-<h1>Polls</h1>
+<h1 class="page-title text-center">Polls</h1>
 
 <div id="polls">
   <% @polls.each do |poll| %>
@@ -10,4 +10,6 @@
   <%= will_paginate @polls %>
 </div>
 
-<%= link_to "New poll", new_poll_path %>
+<% if user_signed_in? %>
+  <%= link_to "New poll", new_user_poll_path(current_user.id) %>
+<% end %>

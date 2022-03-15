@@ -1,8 +1,9 @@
 <%= render @poll %>
 
 <div>
-  <%= link_to "Edit this poll", edit_poll_path(@poll) %> |
+  <% if user_signed_in? and @poll.user_id == current_user.id %>
+    <%= link_to "Edit this poll", edit_user_poll_path(current_user.id, @poll) %> | <%= button_to "Destroy this poll", @poll, method: :delete %>
+  <% end %>
   <%= link_to "Back to polls", polls_path %>
 
-  <%= button_to "Destroy this poll", @poll, method: :delete %>
 </div>

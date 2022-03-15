@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
-  <div class="jumbotron text-center">YOUR POLLS</div>
+  <h1 class="page-title text-center">YOUR POLLS</h1>
 <% else %>
-  <div class="jumbotron text-center">ALL POLLS</div>
+  <h1 class="page-title text-center">ALL POLLS</h1>
 <% end %>
 
 <% if @polls.any? %>
