@@ -1,10 +1,21 @@
 <p>User email: <%= @user.email %></p>
 
 <p>Recent Votes:</p> 
-<% @votes.each do |vote| %>
-  <%= vote.poll.title %>
-  <ul>
-    <li><%= vote.poll_choice.content %></li> 
-  </ul>
-<% end %>
-<%= will_paginate @votes %>
+<div>
+  <hr/>
+  <% @votes.each do |vote| %>
+    <%= vote.poll.title %>
+    <ul>
+      <% vote.poll.poll_choices.each do |choice| %>
+        <% if choice == vote.poll_choice %>
+          <li><strong><%= choice.content %></strong></li> 
+        <% else %>
+          <li><%= choice.content %></li> 
+        <% end %>
+      <% end %>
+    </ul>
+    <hr/>
+
+  <% end %>
+  <%= will_paginate @votes %>
+</div>
