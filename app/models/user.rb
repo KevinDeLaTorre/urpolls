@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :polls, dependent: :destroy
+  has_many :poll_choices, dependent: :destroy
   has_many :votes, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
