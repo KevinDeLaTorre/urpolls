@@ -8,7 +8,7 @@
     <ul>
       <% vote.poll.poll_choices.each do |choice| %>
         <% if choice == vote.poll_choice %>
-          <li><strong><%= choice.content %></strong></li> 
+          <li><strong class="poll_choice_voted"><%= choice.content %></strong></li> 
         <% else %>
           <li><%= choice.content %></li> 
         <% end %>
