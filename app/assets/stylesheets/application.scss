@@ -16,24 +16,24 @@
 
 @import "bootstrap";
 
-@font-face {
-  font-family: 'Montserrat';
-  src: url('montserrat-regular.ttf');
+:root {
+  --primary-color: #d10014;
+  --secondary-color: #404040;
+  --background-color: #fff;
+  --line-separator-color: #eee;
 }
 
-.jumbotron {
-  padding: 2rem 1rem;
-  margin-bottom: 2rem;
-  border-radius: .3rem;
+@font-face {
+  font-family: 'Montserrat';
 }
 
 body {
-  background: #fff;
+  background: var(--background-color);
 }
 
 body, button, input, select, optgroup, textarea {
   font-family: 'Montserrat';
-  color: #404040;
+  color: var(--secondary-color);
   font-size: 1rem;
   line-height: 1.5;
 }
@@ -50,7 +50,12 @@ section {
   padding: 1rem;
 }
 
-.byline {
-  color: red; 
-  font-weight: bold;
+.jumbotron {
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  border-radius: .3rem;
+}
+
+.by-line {
+
 }
