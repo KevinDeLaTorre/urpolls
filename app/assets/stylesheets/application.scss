@@ -16,13 +16,6 @@
 
 @import "bootstrap";
 
-:root {
-  --primary-color: #d10014;
-  --secondary-color: #404040;
-  --background-color: #fff;
-  --line-separator-color: #eee;
-}
-
 @font-face {
   font-family: 'Montserrat';
 }
@@ -46,6 +39,27 @@ section {
   display: block;
 }
 
+.btn-solid {
+  transition-duration: 0.2s;
+}
+
+.btn-solid:hover, .active, .poll_choice_vote {
+  background-color: var(--button-bg-color);
+  color: var(--background-color);
+  transition-duration: 0.2s;
+}
+
+.btn-hollow {
+  transition-duration: 0.2s;
+  border: 3px solid;
+  border-color: var(--background-color);
+}
+
+.btn-hollow:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
 .page-title {
   padding: 1rem;
 }
@@ -54,8 +68,4 @@ section {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
   border-radius: .3rem;
-}
-
-.poll_choice_voted {
-  color: var(--primary-color);
 }

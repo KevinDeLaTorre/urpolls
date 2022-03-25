@@ -12,24 +12,24 @@
       <nav class="navigation-bar text-center ">
         <ul id="primary-menu" class="nav justify-content-center">
           <li id="nav-home" class="menu-item">
-            <%= link_to "Home", root_url %>
+            <%= button_to "Home", root_url, method: :get, class: "btn btn-solid rounded #{active_class?(root_url)}" %>
           </li>
           <li id="nav-polls" class="menu-item">
-            <%= link_to "Polls", polls_path %>
+            <%= button_to "Polls", polls_path, method: :get, class: "btn btn-solid rounded #{active_class?(polls_path)}" %>
           </li>
           <% if user_signed_in? %>
             <li id="nav-account" class="menu-item">
-              <%= link_to "My account", user_path(current_user.id) %>
+              <%= button_to "My account", user_path(current_user.id), method: :get,class: "btn btn-solid rounded #{active_class?(user_path(current_user.id))}" %>
             </li>
             <li id="nav-signout" class="menu-item">
-              <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+              <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-solid rounded" %>
             </li>
           <% else %>
             <li id="nav-signin" class="menu-item">
-              <%= link_to "Sign in", new_user_session_path %>
+              <%= button_to "Sign in", new_user_session_path, method: :get, class: "btn btn-solid rounded #{active_class?(new_user_session_path)}" %>
             </li>
             <li id="nav-signup" class="menu-item">
-              <%= link_to "Sign up", new_user_registration_path %>
+              <%= button_to "Sign up", new_user_registration_path, method: :get, class: "btn btn-solid rounded #{active_class?(new_user_registration_path)}" %>
             </li>
           <% end %>
         </ul>

@@ -1,0 +1,42 @@
+.poll_choice_voted {
+  color: var(--primary-color);
+}
+
+.byline {
+  color: var(--secondary-color);
+  font-size: .8rem;
+  font-weight: 400;
+  padding-top: 0;
+  a {
+    text-decoration: none;
+    color: var(--author-color);
+  }
+  
+  a:hover {
+    color: var(--secondary-color);
+  }
+}
+
+.poll_title {
+  font-size: 2rem;
+  font-weight: 500;
+  padding-bottom: 0;
+}
+
+.poll_choice_button {
+  padding: .8rem;
+  padding-left: 2rem;
+  margin: .25rem;
+  margin-left: 0rem;
+  width: 100%;
+  text-align: start;
+  font-weight: 500;
+  border-width: 5px;
+  }
+
+.poll_choices_table {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+}

@@ -1,13 +1,24 @@
 <div id="<%= dom_id poll %>">
-  <div>
-    <h2><%= poll.title %></h2>
-    <p class="byline"><%= poll.user.email %></p>
-    <div class="container">
+  <div class="border rounded shadow-sm p-4 mb-3">
+    <span class="poll_title "><%= poll.title %></span>
+    <br/>
+    <span class="byline">Submitted by: <%= link_to poll.user.email, user_path(poll.user.id) %></span>
+    <hr/>
+    <div class="container poll_choices_table">
       <% poll.poll_choices.each do |choice| %>
         <% if user_signed_in? %>
-          <%= button_to choice.content, user_votes_path(current_user.id), method: :post, params: { poll_choice_id: choice.id, poll_id: poll.id } %>
+          <span>
+            <%= 
+              button_to choice.content, user_votes_path(current_user.id), 
+                params: { poll_choice_id: choice.id, poll_id: poll.id },
+                class: "btn btn-hollow shadow-sm poll_choice_button" 
+              %>
+          </span>
         <% else %>
-          <%= link_to choice.content, new_user_session_path, method: :post %>
+          <%= 
+            link_to choice.content, new_user_session_path, 
+              class: "btn btn-solid shadow-sm poll_choice_button" 
+            %>
         <% end %>
       <% end %>
     </div>
