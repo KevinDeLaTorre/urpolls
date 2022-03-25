@@ -7,10 +7,16 @@
 <% if @polls.any? %>
   <%= render @polls %>
 <% else %>
-  <div class="jumbotron text-center">
-    YOU HAVE NOT CREATED ANY POLLS YET CREATE ONE <%= link_to "HERE", new_poll_path %>!
+  <% if user_signed_in? %>
+    <div class="jumbotron text-center">
+    YOU HAVE NOT CREATED ANY POLLS YET CREATE ONE <%= link_to "HERE", new_user_poll_path(current_user.id) %>!
     or see everybody else's <%= link_to 'here', polls_path %>
   </div>
-<% end %>
+<% else %>
+  <div class="jumbotron text-center">
+    NO POLLS HAVE BEEN CREATED YET! <%= link_to "LOGIN", new_user_session_path %> AND BE THE FIRST!
+  </div>
+  <% end %>
+  <% end %>
 <%= will_paginate @polls %>
 

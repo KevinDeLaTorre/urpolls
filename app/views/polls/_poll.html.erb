@@ -1,10 +1,15 @@
 <div id="<%= dom_id poll %>">
   <div>
-    <p><strong>User: </strong><%= poll.user.email %></p>
-    <p><strong>Title: </strong><%= poll.title %></p>
-    <% poll.poll_choices.each do |choice| %>
-      <p class="pl-2">- <%= choice.content %></p>
-    <% end %>
+    <h2><%= poll.title %></h2>
+    <p class="byline"><%= poll.user.email %></p>
+    <div class="container">
+      <% poll.poll_choices.each do |choice| %>
+        <% if user_signed_in? %>
+          <%= button_to choice.content, user_votes_path(current_user.id), method: :post, params: { poll_choice_id: choice.id, poll_id: poll.id } %>
+        <% else %>
+          <%= link_to choice.content, new_user_session_path, method: :post %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
-
 </div>

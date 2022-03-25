@@ -1,6 +1,10 @@
 <p>User email: <%= @user.email %></p>
 
 <p>Recent Votes:</p> 
-<% @user.votes.each do |vote| %>
-  <%= vote.poll_choice.content %> 
+<% @votes.each do |vote| %>
+  <%= vote.poll.title %>
+  <ul>
+    <li><%= vote.poll_choice.content %></li> 
+  </ul>
 <% end %>
+<%= will_paginate %>

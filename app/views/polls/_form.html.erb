@@ -1,4 +1,4 @@
-<%= simple_form_for @poll do |poll| %>
+<%= simple_form_for @poll, url: user_polls_path, method: :post do |poll| %>
   <%= poll.input :title, label: "Title of poll:", placeholder: "Are you right handed?", autofocus: true, required: true, class: "form-control" %>
   <%= poll.fields_for :choices do |choice| %>
     <%= choice.input nil, label: "Enter a poll choice:", placeholder: "True", required: true, class: "form-control" %>

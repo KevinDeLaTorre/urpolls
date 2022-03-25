@@ -1,1 +1,7 @@
 All user votes go here
+
+<% @votes.each do |vote| %>
+  <ul>
+    <li><%= vote.poll_choice.poll.title %></li>
+  </ul>
+<% end %>
