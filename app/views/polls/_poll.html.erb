@@ -4,20 +4,36 @@
     <br/>
     <span class="byline">Submitted by: <%= link_to poll.user.email, user_path(poll.user.id) %></span>
     <hr/>
-    <div class="container poll_choices_table">
+    <div class="container poll-choices-table">
+      <% if user_signed_in? %>
+        <% votes = current_user.votes %>
+        <% vote = votes.find_by(poll_id: poll.id) %>
+      <% end %>
       <% poll.poll_choices.each do |choice| %>
         <% if user_signed_in? %>
           <span>
-            <%= 
-              button_to choice.content, user_votes_path(current_user.id), 
-                params: { poll_choice_id: choice.id, poll_id: poll.id },
-                class: "btn btn-hollow shadow-sm poll_choice_button" 
-              %>
+            <% if vote.nil? %>
+              <%= 
+                button_to choice.content, user_votes_path(current_user.id), 
+                  params: { poll_choice_id: choice.id, poll_id: poll.id },
+                  class: "btn-hollow rounded shadow-sm poll-choice-button" 
+                %>
+            <% else %>
+              <% if vote.poll_choice_id == choice.id %>
+                <div class="poll-choice-button rounded btn-solid shadow-lg poll-choice-vote no-hover border-soft">
+                  <%= choice.content %>
+                </div>
+              <% else %>
+                <div class="btn-hollow rounded shadow-sm poll-choice-button no-hover border-soft">
+                  <%= choice.content %>
+                </div>
+              <% end %>
+            <% end %>
           </span>
         <% else %>
           <%= 
             link_to choice.content, new_user_session_path, 
-              class: "btn btn-solid shadow-sm poll_choice_button" 
+              class: "btn-hollow rounded shadow-sm poll_choice_button" 
             %>
         <% end %>
       <% end %>

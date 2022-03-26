@@ -1,21 +1,10 @@
+<h1 class="page-title text-center"><%= user_signed_in? ? "My Account" : "" %></h1>
 <p>User email: <%= @user.email %></p>
 
-<p>Recent Votes:</p> 
+<p class="text-center page-sub-title">Recent Votes:</p> 
 <div>
-  <hr/>
   <% @votes.each do |vote| %>
-    <%= vote.poll.title %>
-    <ul>
-      <% vote.poll.poll_choices.each do |choice| %>
-        <% if choice == vote.poll_choice %>
-          <li><strong class="poll_choice_voted"><%= choice.content %></strong></li> 
-        <% else %>
-          <li><%= choice.content %></li> 
-        <% end %>
-      <% end %>
-    </ul>
-    <hr/>
-
+    <%= render "polls/poll", poll: vote.poll %>
   <% end %>
   <%= will_paginate @votes %>
 </div>

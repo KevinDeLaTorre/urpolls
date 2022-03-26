@@ -2,8 +2,10 @@
 
 <div>
   <% if user_signed_in? and @poll.user_id == current_user.id %>
-    <%= link_to "Edit this poll", edit_user_poll_path(current_user.id, @poll) %> | <%= button_to "Destroy this poll", user_poll_path(@poll), method: :delete %>
+    <div>
+      <%= link_to "Back to polls", polls_path, class: "btn btn-secondary" %>
+      <%= link_to "Edit this poll", edit_user_poll_path(current_user.id, @poll), class: "btn btn-success" %>
+      <%= button_to "Destroy this poll", user_poll_path(@poll), method: :delete, class: "btn btn-danger float-end" %>
+    </div>
   <% end %>
-  <%= link_to "Back to polls", polls_path %>
-
 </div>

@@ -98,6 +98,8 @@ class PollsController < ApplicationController
       valid = false
     end
 
+
+
     if not valid
       if params[:id].nil?
         redirect_to new_poll_path

@@ -41,9 +41,10 @@ section {
 
 .btn-solid {
   transition-duration: 0.2s;
+  font-weight: 600;
 }
 
-.btn-solid:hover, .active, .poll_choice_vote {
+.btn-solid:hover, .active, .poll-choice-vote {
   background-color: var(--button-bg-color);
   color: var(--background-color);
   transition-duration: 0.2s;
@@ -51,8 +52,9 @@ section {
 
 .btn-hollow {
   transition-duration: 0.2s;
-  border: 3px solid;
+  border: 1px solid;
   border-color: var(--background-color);
+  font-weight: 600;
 }
 
 .btn-hollow:hover {
@@ -64,8 +66,23 @@ section {
   padding: 1rem;
 }
 
+.page-sub-title {
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
 .jumbotron {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
   border-radius: .3rem;
+}
+
+.no-hover {
+  pointer-events: none;
+}
+
+.border-soft {
+  border: 1px solid;
+  border-color: var(--border-soft-color);
 }
