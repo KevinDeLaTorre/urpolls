@@ -11,7 +11,7 @@ class VotesController < ApplicationController
       flash[:danger] = "You already voted for this poll"
       redirect_to poll_path(@vote.poll_id)
     else
-      redirect_to user_path(@user)
+      redirect_to polls_path
     end
   end
 

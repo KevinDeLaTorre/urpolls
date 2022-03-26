@@ -5,18 +5,22 @@
     <span class="byline">Submitted by: <%= link_to poll.user.email, user_path(poll.user.id) %></span>
     <hr/>
     <div class="container poll-choices-table">
-      <% if user_signed_in? %>
+      <% if !params[:id].nil? and params[:controller] == "users" %>
+        <% votes = @user.votes %>
+      <% else %>
+        <% @user = current_user %>
         <% votes = current_user.votes %>
-        <% vote = votes.find_by(poll_id: poll.id) %>
       <% end %>
+      <% vote = votes.find_by(poll_id: poll.id) %>
       <% poll.poll_choices.each do |choice| %>
         <% if user_signed_in? %>
           <span>
             <% if vote.nil? %>
               <%= 
-                button_to choice.content, user_votes_path(current_user.id), 
+                button_to choice.content, user_votes_path(@user.id), 
                   params: { poll_choice_id: choice.id, poll_id: poll.id },
-                  class: "btn-hollow rounded shadow-sm poll-choice-button" 
+                  class: "btn-hollow rounded shadow-sm poll-choice-button",
+                  data: { turbo_method: :post }
                 %>
             <% else %>
               <% if vote.poll_choice_id == choice.id %>
