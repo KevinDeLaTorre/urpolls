@@ -5,13 +5,15 @@
     <span class="byline">Submitted by: <%= link_to poll.user.email, user_path(poll.user.id) %></span>
     <hr/>
     <div class="container poll-choices-table">
-      <% if !params[:id].nil? and params[:controller] == "users" %>
-        <% votes = @user.votes %>
-      <% else %>
-        <% @user = current_user %>
-        <% votes = current_user.votes %>
+      <% if user_signed_in? %>
+        <% if !params[:id].nil? and params[:controller] == "users" %>
+          <% votes = @user.votes %>
+        <% else %>
+          <% @user = current_user %>
+          <% votes = current_user.votes %>
+        <% end %>
+        <% vote = votes.find_by(poll_id: poll.id) %>
       <% end %>
-      <% vote = votes.find_by(poll_id: poll.id) %>
       <% poll.poll_choices.each do |choice| %>
         <% if user_signed_in? %>
           <span>
