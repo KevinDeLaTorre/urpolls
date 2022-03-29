@@ -9,8 +9,5 @@ class User < ApplicationRecord
   has_many :votes, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
-
-  def voted_on?(poll_choice)
-    
-  end
+  validates :password_confirmation, presence: true, on: :create
 end
